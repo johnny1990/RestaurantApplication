@@ -10,6 +10,7 @@ namespace RestaurantApp.Entities
         [Key]
         public int Id { get; set; }
 
+        [Required(ErrorMessage = "You need to type chef name!")]
         public string Name { get; set; }
 
     }

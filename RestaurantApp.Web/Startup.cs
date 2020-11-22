@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using RestaurantApp.Web.Data;
+using RestaurantApp.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +33,9 @@ namespace RestaurantApp.Web
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddDbContext<RestaurantDbContext>(
+                options => options.UseSqlServer(Configuration.GetConnectionString("RestaurantDbConnection")));
             services.AddControllersWithViews();
             services.AddRazorPages();
         }

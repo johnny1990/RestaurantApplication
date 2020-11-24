@@ -1,0 +1,62 @@
+﻿@model PagedList<RestaurantApp.Entities.Meal>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1 class="text-center">Meals</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-light border-dark">Add meal</a>
+</p>
+<table class="table" border="1">
+    <thead class="text-info bg-light">
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Comments
+            </th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Comments)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-success">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<a asp-action="Index"
+
+   asp-route-pageNumber="@(Model.PageIndex - 1)"
+
+   class="btn btn-default border-dark @prevDisabled">
+    Previous
+</a>
+<a asp-action="Index"
+
+   asp-route-pageNumber="@(Model.PageIndex + 1)"
+   
+   class="btn btn-default border-dark @nextDisabled">
+    Next
+</a>

@@ -13,8 +13,8 @@ namespace RestaurantApp.Entities
         public int ChefId { get; set; }
         public Chef Chef { get; set; }
         public decimal Price { get; set; }
-        public List<MenuMeal> MenuMeals { get; set; }
+        //meal list
+        public string Meals { get; set; }
 
-        public int MealsCount => MenuMeals.Count;
     }
 }

@@ -15,7 +15,7 @@ namespace RestaurantApp.Web.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.8")
+                .HasAnnotation("ProductVersion", "3.1.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -27,6 +27,7 @@ namespace RestaurantApp.Web.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -77,6 +78,9 @@ namespace RestaurantApp.Web.Migrations
                     b.Property<int>("ChefId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Meals")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -88,28 +92,6 @@ namespace RestaurantApp.Web.Migrations
                     b.HasIndex("ChefId");
 
                     b.ToTable("Menus");
-                });
-
-            modelBuilder.Entity("RestaurantApp.Entities.MenuMeal", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("MealId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MenuId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MealId");
-
-                    b.HasIndex("MenuId");
-
-                    b.ToTable("MenuMeals");
                 });
 
             modelBuilder.Entity("RestaurantApp.Entities.OrderedMenus", b =>
@@ -201,21 +183,6 @@ namespace RestaurantApp.Web.Migrations
                     b.HasOne("RestaurantApp.Entities.Chef", "Chef")
                         .WithMany()
                         .HasForeignKey("ChefId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("RestaurantApp.Entities.MenuMeal", b =>
-                {
-                    b.HasOne("RestaurantApp.Entities.Meal", "Meal")
-                        .WithMany("MenuMeals")
-                        .HasForeignKey("MealId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("RestaurantApp.Entities.Menu", "Menu")
-                        .WithMany("MenuMeals")
-                        .HasForeignKey("MenuId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

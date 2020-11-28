@@ -21,8 +21,6 @@ namespace RestaurantApp.Web.Models
 
         public DbSet<Menu> Menus { get; set; }
 
-        public DbSet<MenuMeal> MenuMeals { get; set; }
-
         public DbSet<ShoppingCart> ShoppingCarts { get; set; }
 
         public DbSet<Orders> Orders { get; set; }

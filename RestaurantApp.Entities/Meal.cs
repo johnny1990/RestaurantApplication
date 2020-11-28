@@ -12,6 +12,5 @@ namespace RestaurantApp.Entities
 
         public string Comments { get; set; }
 
-        public List<MenuMeal> MenuMeals { get; set; }
     }
 }

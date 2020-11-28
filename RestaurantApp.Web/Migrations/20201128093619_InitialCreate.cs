@@ -13,7 +13,7 @@ namespace RestaurantApp.Web.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -73,7 +73,8 @@ namespace RestaurantApp.Web.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(nullable: true),
                     ChefId = table.Column<int>(nullable: false),
-                    Price = table.Column<decimal>(nullable: false)
+                    Price = table.Column<decimal>(nullable: false),
+                    Meals = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -82,32 +83,6 @@ namespace RestaurantApp.Web.Migrations
                         name: "FK_Menus_Chefs_ChefId",
                         column: x => x.ChefId,
                         principalTable: "Chefs",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "MenuMeals",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    MenuId = table.Column<int>(nullable: false),
-                    MealId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_MenuMeals", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_MenuMeals_Meals_MealId",
-                        column: x => x.MealId,
-                        principalTable: "Meals",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_MenuMeals_Menus_MenuId",
-                        column: x => x.MenuId,
-                        principalTable: "Menus",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -163,16 +138,6 @@ namespace RestaurantApp.Web.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_MenuMeals_MealId",
-                table: "MenuMeals",
-                column: "MealId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_MenuMeals_MenuId",
-                table: "MenuMeals",
-                column: "MenuId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Menus_ChefId",
                 table: "Menus",
                 column: "ChefId");
@@ -199,16 +164,13 @@ namespace RestaurantApp.Web.Migrations
                 name: "Feedbacks");
 
             migrationBuilder.DropTable(
-                name: "MenuMeals");
+                name: "Meals");
 
             migrationBuilder.DropTable(
                 name: "OrderedMenus");
 
             migrationBuilder.DropTable(
                 name: "ShoppingCarts");
-
-            migrationBuilder.DropTable(
-                name: "Meals");
 
             migrationBuilder.DropTable(
                 name: "Orders");

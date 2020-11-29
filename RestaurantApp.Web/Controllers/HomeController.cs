@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using RestaurantApp.Web.Models;
 using System;
@@ -12,15 +13,19 @@ namespace RestaurantApp.Web.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly RestaurantDbContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, RestaurantDbContext context)
         {
             _logger = logger;
+            _context = context;
         }
-
+     
+        //restaurant dashboard
         public IActionResult Index()
         {
-            return View();
+            var restaurantDbContext = _context.Menus.Include(m => m.Chef);
+            return View( restaurantDbContext.ToList());
         }
 
         public IActionResult About()

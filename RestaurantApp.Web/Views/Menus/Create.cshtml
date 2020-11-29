@@ -1,0 +1,55 @@
+﻿@model RestaurantApp.Entities.Menu
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Menu</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ChefId" class="control-label">Chef</label>
+                <select asp-for="ChefId" class="form-control" asp-items="ViewBag.ChefId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Meals" class="control-label"></label>
+                <input asp-for="Meals" class="form-control" />
+                <span asp-validation-for="Meals" class="text-danger"></span>
+            </div>
+
+            <p>Drag&Drop only the meals from below list to assign for new menu!</p>
+            <div class="form-group">
+                <label asp-for="Meals" class="control-label"></label>
+                <div>
+                    <input class="text" id="MealsList" name="MealsList" value="@foreach (var item in ViewBag.Meals){@item }" style=" width:1300px">
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

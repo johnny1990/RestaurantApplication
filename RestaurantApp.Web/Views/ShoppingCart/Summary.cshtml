@@ -1,0 +1,8 @@
+﻿
+@{
+    ViewData["Title"] = "Summary";
+}
+
+<h1>Summary</h1>
+
+@Html.ActionLink("Cart(" + ViewData["CartCount"] + ")", "Index", "ShoppingCart", new { id = "cart-status" })

@@ -38,6 +38,7 @@ namespace RestaurantApp.Web
                 options => options.UseSqlServer(Configuration.GetConnectionString("RestaurantDbConnection")));
             services.AddControllersWithViews();
             services.AddRazorPages();
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -61,6 +62,7 @@ namespace RestaurantApp.Web
 
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {

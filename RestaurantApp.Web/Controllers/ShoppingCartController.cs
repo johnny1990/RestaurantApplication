@@ -51,17 +51,17 @@ namespace RestaurantApp.Web.Controllers
                 CartHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
                
 
-                var cartItem = _context.ShoppingCarts.SingleOrDefault(c => c.CartId == ShoppingCartId && c.MenuId == menu.Id);
+                //var cartItem = _context.ShoppingCarts.SingleOrDefault(c => c.CartId == ShoppingCartId && c.MenuId == menu.Id);
 
-                 cartItem = new ShoppingCart
-                {
-                    MenuId = id,
-                    CartId = ShoppingCartId,
-                    Count = 1,
-                    RegisterDate = DateTime.Now
-                };
-                _context.ShoppingCarts.Add(cartItem);
-                _context.SaveChanges();
+                // cartItem = new ShoppingCart
+                //{
+                //    MenuId = id,
+                //    CartId = ShoppingCartId,
+                //    Count = 1,
+                //    RegisterDate = DateTime.Now
+                //};
+                //_context.ShoppingCarts.Add(cartItem);
+                //_context.SaveChanges();
                 
             }
             else

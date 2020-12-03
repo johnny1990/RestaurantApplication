@@ -1,0 +1,20 @@
+﻿CREATE TABLE [dbo].[Menus](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [nvarchar](max) NULL,
+	[ChefId] [int] NOT NULL,
+	[Price] [decimal](18, 2) NOT NULL,
+	[Meals] [nvarchar](max) NULL,
+ CONSTRAINT [PK_Menus] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[Menus]  WITH CHECK ADD  CONSTRAINT [FK_Menus_Chefs_ChefId] FOREIGN KEY([ChefId])
+REFERENCES [dbo].[Chefs] ([Id])
+ON DELETE CASCADE
+GO
+
+ALTER TABLE [dbo].[Menus] CHECK CONSTRAINT [FK_Menus_Chefs_ChefId]
+GO

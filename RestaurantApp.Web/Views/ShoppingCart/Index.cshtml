@@ -31,7 +31,7 @@
         s = s + item.Menu.Price * item.Quantity;
 
         <tr>
-            <td>@Html.ActionLink("Remove from cart", "DeleteFromCart", "ShoppingCart", new { id = item.Menu.Id }, new { @class = "btn btn-default" })</td>
+            <td>@Html.ActionLink("Remove from cart", "DeleteFromCart", "ShoppingCart", new { id = item.Menu.Id }, new { @class = "btn btn-default border-dark" })</td>
             <td>@item.Menu.Id</td>
             <td>@item.Menu.Name</td>
             <td>@Math.Round(item.Menu.Price, 2) $</td>
@@ -50,6 +50,6 @@
     @Html.ActionLink("Continue shopping", "Index", "Home")
 </p>
 <p>
-    @Html.ActionLink("Confirm order", "Order", "Checkout", new { @class = "btn btn-default" })
+    @Html.ActionLink("Confirm order", "Checkout", "Orders", new { id = @Math.Round(s, 2) }, new { @class = "btn btn-default border-dark" })
 </p>
   }

@@ -1,0 +1,50 @@
+﻿@model RestaurantApp.Entities.Orders
+@using System.Globalization
+
+@{
+    ViewData["Title"] = "Checkout";
+}
+
+
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Checkout">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Address" class="control-label"></label>
+                    <input asp-for="Address" class="form-control" />
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Phone" class="control-label"></label>
+                    <input asp-for="Phone" class="form-control" />
+                    <span asp-validation-for="Phone" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Mail" class="control-label"></label>
+                    <input asp-for="Mail" class="form-control" value="@User.Identity.Name"/>
+                    <span asp-validation-for="Mail" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="RegisterDate" class="control-label"></label>
+                    <input asp-for="RegisterDate" class="form-control" value="@DateTime.Now.ToString("MM/dd/yyyy h:mm:ss", CultureInfo.InvariantCulture)" />
+                    <span asp-validation-for="RegisterDate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Amount" class="control-label"></label>
+                    <input asp-for="Amount" class="form-control" value="@ViewBag.Amount"/>
+                    <span asp-validation-for="Amount" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Confirm Order" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+

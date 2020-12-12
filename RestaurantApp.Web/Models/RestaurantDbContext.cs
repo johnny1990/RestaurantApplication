@@ -13,6 +13,12 @@ namespace RestaurantApp.Web.Models
         {
         }
 
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.Ignore<OrderedMenus>();
+        //    modelBuilder.Entity<OrderedMenus>().HasNoKey();//.ToView(null);
+        //}
+
         public DbSet<Chef> Chefs { get; set; }
 
         public DbSet<Meal> Meals { get; set; }

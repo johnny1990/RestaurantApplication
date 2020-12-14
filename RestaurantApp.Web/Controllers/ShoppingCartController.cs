@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RestaurantApp.Entities;
 using RestaurantApp.Web.Helpers;
 using RestaurantApp.Web.Models;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace RestaurantApp.Web.Controllers
 {
+    [Authorize]
     public class ShoppingCartController : Controller
     {
         private readonly RestaurantDbContext _context;

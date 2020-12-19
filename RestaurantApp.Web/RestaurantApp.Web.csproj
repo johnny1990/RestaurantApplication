@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\RestaurantApp.Entities\RestaurantApp.Entities.csproj" />
+    <ProjectReference Include="..\RestaurantApp.Logger\RestaurantApp.Logger.csproj" />
   </ItemGroup>
 
   <ItemGroup>

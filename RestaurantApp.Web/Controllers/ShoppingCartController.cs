@@ -24,15 +24,23 @@ namespace RestaurantApp.Web.Controllers
 
         public IActionResult Index()
         {
-            var cart = CartHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, "cart");
-            ViewBag.Cart = cart;
-            if(ViewBag.Cart == null)
+            try
             {
+                var cart = CartHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, "cart");
+                ViewBag.Cart = cart;
+                if (ViewBag.Cart == null)
+                {
+                    return View();
+                }
+
+                ViewBag.total = cart.Sum(item => item.Menu.Price * item.Quantity);
                 return View();
             }
-
-            ViewBag.total = cart.Sum(item => item.Menu.Price * item.Quantity);
-            return View();
+            catch (Exception ex)
+            {
+                Logger.LogWriter.LogException(ex);
+                return NotFound();
+            }          
         }
 
         public IViewComponentResult Summary()

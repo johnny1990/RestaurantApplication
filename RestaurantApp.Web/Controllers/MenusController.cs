@@ -23,9 +23,17 @@ namespace RestaurantApp.Web.Controllers
 
         // GET: Menus
         public async Task<IActionResult> Index()
-        {
-            var restaurantDbContext = _context.Menus.Include(m => m.Chef);
-            return View(await restaurantDbContext.ToListAsync());
+        {           
+            try
+            {
+                var restaurantDbContext = _context.Menus.Include(m => m.Chef);
+                return View(await restaurantDbContext.ToListAsync());
+            }
+            catch (Exception ex)
+            {
+                Logger.LogWriter.LogException(ex);
+                return NotFound();
+            }
         }
 
         // GET: Menus/Details/5

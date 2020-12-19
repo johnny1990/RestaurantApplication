@@ -24,8 +24,16 @@ namespace RestaurantApp.Web.Controllers
         // GET: Meals
         public async Task<IActionResult> Index(int? pageNumber)
         {
-            int pageSize = 7;
-            return View(await PagedList<Meal>.CreateAsync(_context.Meals.AsNoTracking(), pageNumber ?? 1, pageSize));
+            try
+            {
+                int pageSize = 7;
+                return View(await PagedList<Meal>.CreateAsync(_context.Meals.AsNoTracking(), pageNumber ?? 1, pageSize));
+            }
+            catch (Exception ex)
+            {
+                Logger.LogWriter.LogException(ex);
+                return NotFound();
+            }        
         }
 
         // GET: Meals/Details/5

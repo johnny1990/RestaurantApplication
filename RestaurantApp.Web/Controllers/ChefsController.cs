@@ -24,7 +24,15 @@ namespace RestaurantApp.Web.Controllers
         // GET: Chefs
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Chefs.ToListAsync());
+            try
+            {
+                return View(await _context.Chefs.ToListAsync());
+            }
+            catch (Exception ex)
+            {
+                Logger.LogWriter.LogException(ex);
+                return NotFound();
+            }
         }
 
         // GET: Chefs/Details/5

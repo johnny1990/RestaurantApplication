@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using RestaurantApp.Entities;
 using RestaurantApp.Web.Models;
 
@@ -14,20 +16,34 @@ namespace RestaurantApp.Web.Controllers
     [Authorize]
     public class MenusController : Controller
     {
+        Uri baseAddress = new Uri("https://localhost:44366/api");
+        HttpClient client;
+
         private readonly RestaurantDbContext _context;
 
         public MenusController(RestaurantDbContext context)
         {
             _context = context;
+
+            client = new HttpClient();
+            client.BaseAddress = baseAddress;
         }
 
         // GET: Menus
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {           
             try
             {
-                var restaurantDbContext = _context.Menus.Include(m => m.Chef);
-                return View(await restaurantDbContext.ToListAsync());
+                List<Menu> modelList = new List<Menu>();
+                HttpResponseMessage response = client.GetAsync(client.BaseAddress + "/Menus/GetMenus").Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    string data = response.Content.ReadAsStringAsync().Result;
+                    modelList = JsonConvert.DeserializeObject<List<Menu>>(data);
+                }
+
+                return View( modelList.ToList());
+
             }
             catch (Exception ex)
             {

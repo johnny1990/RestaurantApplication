@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using RestaurantApp.Entities;
 using RestaurantApp.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace RestaurantApp.Web.Controllers.API
 {
@@ -28,7 +30,41 @@ namespace RestaurantApp.Web.Controllers.API
             return new OkObjectResult(meals);
         }
 
+        [HttpGet]
+        [Route("GetMenuById")]
+        public IActionResult GetMenuById(int id)
+        {
+           
+            var meal = from a in _context.Menus.Where(p => p.Id == id).ToList()
+                         select new
+                         {
+                             a.Id,
+                             a.Name,
+                             a.ChefId,
+                             a.Price,
+                             a.Meals
 
- 
+                         };
+            return new OkObjectResult(meal);
+        }
+
+        [HttpPost]
+        [Route("CreateMenu")]
+        public IActionResult CreateMenu([FromBody] Menu menu)
+        {
+                _context.Add(menu);
+                _context.SaveChanges();
+                return CreatedAtAction(nameof(Menu), new { id = menu.Id }, menu);
+        }
+
+        [HttpPut]
+        [Route("UpdateMenu")]
+        public IActionResult UpdateMenu([FromBody] Menu menu)
+        {
+              _context.Update(menu);
+              _context.SaveChanges();
+                return new OkResult();               
+        }
+
     }
 }

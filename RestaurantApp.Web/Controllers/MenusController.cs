@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -92,33 +93,34 @@ namespace RestaurantApp.Web.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,ChefId,Price,Meals")] Menu menu)
+        public IActionResult Create([Bind("Id,Name,ChefId,Price,Meals")] Menu menu)
         {
-            if (ModelState.IsValid)
+
+            string data = JsonConvert.SerializeObject(menu);
+            StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = client.PostAsync(client.BaseAddress + "/Menus/CreateMenu", content).Result;
+            if (response.IsSuccessStatusCode)
             {
-                _context.Add(menu);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index");
             }
-            ViewData["ChefId"] = new SelectList(_context.Chefs, "Id", "Name", menu.ChefId);
-            return View(menu);
+
+            return View();
         }
 
         // GET: Menus/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int? id)
         {
-            if (id == null)
+            Menu model = new Menu();
+            HttpResponseMessage response = client.GetAsync(client.BaseAddress + "/Menus/GetMenuById?id=" + id).Result;
+            if (response.IsSuccessStatusCode)
             {
-                return NotFound();
+                string data = response.Content.ReadAsStringAsync().Result;
+                string datamodel = data.Replace("[", string.Empty).Replace("]", string.Empty);
+                model = JsonConvert.DeserializeObject<Menu>(datamodel);
             }
-
-            var menu = await _context.Menus.FindAsync(id);
-            if (menu == null)
-            {
-                return NotFound();
-            }
-            ViewData["ChefId"] = new SelectList(_context.Chefs, "Id", "Name", menu.ChefId);
-            return View(menu);
+            ViewData["ChefId"] = new SelectList(_context.Chefs, "Id", "Name", model.ChefId);
+            return View(model);
         }
 
         // POST: Menus/Edit/5
@@ -126,33 +128,18 @@ namespace RestaurantApp.Web.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,ChefId,Price,Meals")] Menu menu)
+        public ActionResult Edit(int id, [Bind("Id,Name,ChefId,Price,Meals")] Menu menu)
         {
-            if (id != menu.Id)
+
+            string data = JsonConvert.SerializeObject(menu);
+            StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = client.PutAsync(client.BaseAddress + "/Menus/UpdateMenu", content).Result;
+            if (response.IsSuccessStatusCode)
             {
-                return NotFound();
+                return RedirectToAction("Index");
             }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(menu);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!MenuExists(menu.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
             ViewData["ChefId"] = new SelectList(_context.Chefs, "Id", "Name", menu.ChefId);
             return View(menu);
         }

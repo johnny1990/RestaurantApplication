@@ -66,5 +66,14 @@ namespace RestaurantApp.Web.Controllers.API
                 return new OkResult();               
         }
 
+        [HttpDelete]
+        [Route("DeleteMenu")]
+        public IActionResult DeleteMenu(int id)
+        {
+            var menu = _context.Menus.Find(id);
+            _context.Menus.Remove(menu);
+             _context.SaveChanges();
+            return new OkResult();
+        }
     }
 }

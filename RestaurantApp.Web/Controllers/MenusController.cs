@@ -145,33 +145,33 @@ namespace RestaurantApp.Web.Controllers
         }
 
         // GET: Menus/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int? id)
         {
-            if (id == null)
+
+            Menu model = new Menu();
+            HttpResponseMessage response = client.GetAsync(client.BaseAddress + "/Menus/GetMenuById?id=" + id).Result;
+            if (response.IsSuccessStatusCode)
             {
-                return NotFound();
+                string data = response.Content.ReadAsStringAsync().Result;
+                string datamodel = data.Replace("[", string.Empty).Replace("]", string.Empty);
+                model = JsonConvert.DeserializeObject<Menu>(datamodel);
             }
 
-            var menu = await _context.Menus
-                .Include(m => m.Chef)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (menu == null)
-            {
-                return NotFound();
-            }
+            return View(model);
 
-            return View(menu);
         }
 
         // POST: Menus/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int id)
         {
-            var menu = await _context.Menus.FindAsync(id);
-            _context.Menus.Remove(menu);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            HttpResponseMessage response = client.DeleteAsync(client.BaseAddress + "/Menus/DeleteMenu?Id=" + id).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index");
+            }
+            return RedirectToAction("Index");
         }
 
         private bool MenuExists(int id)

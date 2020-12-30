@@ -1,0 +1,26 @@
+﻿@model IEnumerable<RestaurantApp.Entities.Feedbacks>
+
+@{
+    ViewData["Title"] = "Customer Feedbacks";
+}
+
+
+<p>
+    <a asp-action="NewFeedback" class="btn btn-light border-dark">New Feedback</a>
+</p>
+</p>
+<table class="table" border="1">
+    <thead>
+        <tr>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Comments)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

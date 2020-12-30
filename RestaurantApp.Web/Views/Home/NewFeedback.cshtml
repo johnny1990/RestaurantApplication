@@ -1,0 +1,29 @@
+﻿@model RestaurantApp.Entities.Feedbacks
+
+@{
+    ViewData["Title"] = "NewFeedback";
+}
+
+
+<h4>New Feedback</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="NewFeedback">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label>Comment</label>
+                <input asp-for="Comments" class="form-control" />
+                <span asp-validation-for="Comments" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Feedbacks">Back to Feedback List</a>
+</div>
+

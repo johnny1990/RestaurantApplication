@@ -1,0 +1,16 @@
+﻿.fb-share-button, .fb-like {
+    vertical-align: top;
+}
+
+.reddit {
+    padding: 2px 10px;
+    border: 1px solid #5f99cf;
+    border-radius: 2px;
+    background: #cee3f8;
+    cursor: pointer;
+    color: #369;
+    font-weight: bold;
+    font-family: normal x-small verdana, arial, helvetica, sans-serif;
+}
+body {
+}

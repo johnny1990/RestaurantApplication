@@ -1,0 +1,35 @@
+﻿
+@{
+    var url = "https://localhost:44328/Home";
+}
+<div class="example">
+    <a href="https://twitter.com/share" class="twitter-share-button" data-url="@url"
+       data-text="Online apple shopping store" data-count="none" data-hashtags="shopping">Tweet</a>
+    <script src="//platform.linkedin.com/in.js" type="text/javascript"></script>
+    <div style="position: relative; width: 59px; height: 20px; display: inline-block;">
+        <div style="position: absolute;">
+            <script type="IN/Share" data-url="@url">
+            </script>
+        </div>
+    </div>
+    <div class="awe-il" style="vertical-align: top">
+        <div class="fb-share-button"
+             data-href="@url"
+             data-layout="button">
+        </div>
+        <div class="fb-like"
+             data-href="https://www.facebook.com/"
+             data-layout="button_count"
+             data-action="like"
+             data-show-faces="false">
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="~/css/home/home.css">
+<div id="fb-root"></div>
+<script type="text/javascript" src="~/js/home/twitter.js">
+
+</script>
+<script type="text/javascript" src="~/js/home/facebook.js">
+</script>

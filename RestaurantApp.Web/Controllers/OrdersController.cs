@@ -61,6 +61,49 @@ namespace RestaurantApp.Web.Controllers
             }
         }
 
+        //OrdersList  OrderHistory
+        //1 Display orders List
+        //2 OrderDetails  all products ordered.
+
+        public IActionResult Orders()
+        {
+            try
+            {
+                return View(_context.Orders.ToList());
+            }
+            catch (Exception ex)
+            {
+                Logger.LogWriter.LogException(ex);
+                return NotFound();
+            }
+        }
+
+        public IActionResult Details(int? id)
+        {
+            try
+            {
+                if (id == null)
+                {
+                    return NotFound();
+                }
+
+                var order =  _context.Orders
+                    .FirstOrDefault(m => m.OrderId == id);
+                if (order == null)
+                {
+                    return NotFound();
+                }
+
+                ViewBag.OrderedMenus =_context.OrderedMenus.Where(p =>p.OrderId == id); 
+                return View(order);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogWriter.LogException(ex);
+                return NotFound();
+            }
+        }
+
         public Orders CreateOrder(Orders order)
         {
             decimal orderTotal = 0;

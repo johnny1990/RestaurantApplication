@@ -45,6 +45,11 @@ namespace RestaurantApp.Web.Controllers
             return View();
         }
 
+        public IActionResult Privacy()
+        {
+            return View();
+        }
+
         public IActionResult SocialMedia()
         {
             return View();

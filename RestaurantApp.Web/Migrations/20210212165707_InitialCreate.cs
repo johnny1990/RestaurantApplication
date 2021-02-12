@@ -26,7 +26,7 @@ namespace RestaurantApp.Web.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Comments = table.Column<string>(nullable: true)
+                    Comments = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -63,6 +63,23 @@ namespace RestaurantApp.Web.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Orders", x => x.OrderId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Vouchers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(nullable: false),
+                    VoucherType = table.Column<string>(nullable: false),
+                    Discount = table.Column<double>(nullable: false),
+                    MinimumAmount = table.Column<double>(nullable: false),
+                    IsActive = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Vouchers", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -171,6 +188,9 @@ namespace RestaurantApp.Web.Migrations
 
             migrationBuilder.DropTable(
                 name: "ShoppingCarts");
+
+            migrationBuilder.DropTable(
+                name: "Vouchers");
 
             migrationBuilder.DropTable(
                 name: "Orders");

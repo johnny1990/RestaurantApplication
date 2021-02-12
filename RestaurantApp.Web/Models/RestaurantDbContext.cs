@@ -33,5 +33,7 @@ namespace RestaurantApp.Web.Models
 
         public DbSet<OrderedMenus> OrderedMenus { get; set; }
 
+        public DbSet<Vouchers> Vouchers { get; set; }
+
     }
 }

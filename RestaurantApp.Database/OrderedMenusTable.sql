@@ -1,0 +1,12 @@
+﻿CREATE TABLE [dbo].[OrderedMenus](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[MenuId] [int] NOT NULL,
+	[OrderId] [int] NOT NULL,
+	[Quantity] [int] NOT NULL,
+	[OrdersOrderId] [int] NULL,
+ CONSTRAINT [PK_OrderedMenus] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO

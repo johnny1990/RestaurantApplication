@@ -57,4 +57,16 @@
   <ItemGroup>
     <Folder Include="Properties" />
   </ItemGroup>
+  <ItemGroup>
+    <Build Include="ChefsTable.sql" />
+    <Build Include="FeedbacksTable.sql" />
+    <Build Include="MealsTable.sql" />
+    <Build Include="MenusTable.sql" />
+    <Build Include="OrdersTable.sql" />
+    <Build Include="ShoppingCartsTable.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="OrderedMenusTable.sql" />
+    <None Include="VouchersTable.sql" />
+  </ItemGroup>
 </Project>

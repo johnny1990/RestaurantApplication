@@ -82,14 +82,7 @@ namespace RestaurantApp.Web.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create([Bind("Id,Name,VoucherType,Discount,MinimumAmount,IsActive")] Vouchers vouchers)
         {
-            //if (ModelState.IsValid)
-            //{
-            //    _context.Add(vouchers);
-            //    await _context.SaveChangesAsync();
-            //    return RedirectToAction(nameof(Index));
-            //}
-
-            //return View(vouchers);
+           
             string data = JsonConvert.SerializeObject(vouchers);
             StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
 
@@ -105,18 +98,6 @@ namespace RestaurantApp.Web.Controllers
         // GET: Vouchers/Edit/5
         public IActionResult Edit(int? id)
         {
-            //if (id == null)
-            //{
-            //    return NotFound();
-            //}
-
-            //var vouchers = await _context.Vouchers.FindAsync(id);
-            //if (vouchers == null)
-            //{
-            //    return NotFound();
-            //}
-            //return View(vouchers);
-
             Vouchers model = new Vouchers();
             HttpResponseMessage response = client.GetAsync(client.BaseAddress + "/Vouchers/GetVoucherById?id=" + id).Result;
             if (response.IsSuccessStatusCode)
@@ -125,7 +106,6 @@ namespace RestaurantApp.Web.Controllers
                 string datamodel = data.Replace("[", string.Empty).Replace("]", string.Empty);
                 model = JsonConvert.DeserializeObject<Vouchers>(datamodel);
             }
-            //ViewData["ChefId"] = new SelectList(_context.Chefs, "Id", "Name", model.Id);
             return View(model);
         }
 
@@ -136,33 +116,6 @@ namespace RestaurantApp.Web.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, [Bind("Id,Name,VoucherType,Discount,MinimumAmount,IsActive")] Vouchers vouchers)
         {
-            //if (id != vouchers.Id)
-            //{
-            //    return NotFound();
-            //}
-
-            //if (ModelState.IsValid)
-            //{
-            //    try
-            //    {
-            //        _context.Update(vouchers);
-            //        await _context.SaveChangesAsync();
-            //    }
-            //    catch (DbUpdateConcurrencyException)
-            //    {
-            //        if (!VouchersExists(vouchers.Id))
-            //        {
-            //            return NotFound();
-            //        }
-            //        else
-            //        {
-            //            throw;
-            //        }
-            //    }
-            //    return RedirectToAction(nameof(Index));
-            //}
-            //return View(vouchers);
-
             string data = JsonConvert.SerializeObject(vouchers);
             StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
 
@@ -179,20 +132,6 @@ namespace RestaurantApp.Web.Controllers
         // GET: Vouchers/Delete/5
         public IActionResult Delete(int? id)
         {
-            //if (id == null)
-            //{
-            //    return NotFound();
-            //}
-
-            //var vouchers = await _context.Vouchers
-            //    .FirstOrDefaultAsync(m => m.Id == id);
-            //if (vouchers == null)
-            //{
-            //    return NotFound();
-            //}
-
-            //return View(vouchers);
-
             Vouchers model = new Vouchers();
             HttpResponseMessage response = client.GetAsync(client.BaseAddress + "/Vouchers/GetMVoucherById?id=" + id).Result;
             if (response.IsSuccessStatusCode)
@@ -210,11 +149,6 @@ namespace RestaurantApp.Web.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)
         {
-            //var vouchers = await _context.Vouchers.FindAsync(id);
-            //_context.Vouchers.Remove(vouchers);
-            //await _context.SaveChangesAsync();
-            //return RedirectToAction(nameof(Index));
-
             HttpResponseMessage response = client.DeleteAsync(client.BaseAddress + "/Vouchers/DeleteVoucher?Id=" + id).Result;
             if (response.IsSuccessStatusCode)
             {

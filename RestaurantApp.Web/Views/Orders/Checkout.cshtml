@@ -27,7 +27,7 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="Mail" class="control-label"></label>
-                    <input asp-for="Mail" class="form-control" value="@User.Identity.Name"/>
+                    <input asp-for="Mail" class="form-control" value="@User.Identity.Name" />
                     <span asp-validation-for="Mail" class="text-danger"></span>
                 </div>
                 <div class="form-group">
@@ -37,10 +37,15 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="Amount" class="control-label"></label>
-                    <input asp-for="Amount" class="form-control" value="@ViewBag.Amount"/>
+                    <input asp-for="Amount" class="form-control" value="@ViewBag.Amount" />
                     <span asp-validation-for="Amount" class="text-danger"></span>
                 </div>
-
+                @*voucher*@
+            <div class="form-group">
+                <label class="control-label">Voucher value</label>
+                <select  class="form-control" asp-items="ViewBag.VoucherCoupon"></select>
+                <span  class="text-danger"></span>
+            </div>
                 <div class="form-group">
                     <input type="submit" value="Confirm Order" class="btn btn-primary" />
                 </div>

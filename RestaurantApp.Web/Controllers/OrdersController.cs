@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using RestaurantApp.Entities;
 using RestaurantApp.Web.Helpers;
 using RestaurantApp.Web.Models;
@@ -26,6 +27,7 @@ namespace RestaurantApp.Web.Controllers
             var url = Request.Path.Value.ToString();
             var amount = url.Substring(17);
             ViewBag.Amount = amount;
+            ViewBag.VoucherCoupon = new SelectList(_context.Vouchers, "Id", "Discount");
             return View();
         }
 

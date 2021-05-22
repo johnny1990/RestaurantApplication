@@ -19,7 +19,7 @@ namespace RestaurantApp.Web.Controllers
         {
             _context = context;
         }
-     
+
         //restaurant dashboard
         public IActionResult Index()
         {
@@ -78,6 +78,16 @@ namespace RestaurantApp.Web.Controllers
                 return RedirectToAction(nameof(Feedbacks));
             }
             return View(feedbacks);
+        }
+
+        [HttpGet]
+        public IActionResult Statistics()
+        {
+
+            var nrOrders = _context.Orders.Select(p => p.OrderId);
+            ViewBag.NrOrders = nrOrders.Count();
+
+            return View();          
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

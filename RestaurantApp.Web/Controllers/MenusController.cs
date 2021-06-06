@@ -14,7 +14,7 @@ using RestaurantApp.Web.Models;
 
 namespace RestaurantApp.Web.Controllers
 {
-    [Authorize]
+    [Authorize(Roles ="Admin")]
     public class MenusController : Controller
     {
         Uri baseAddress = new Uri("https://localhost:44366/api");

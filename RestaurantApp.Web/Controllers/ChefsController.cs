@@ -11,7 +11,7 @@ using RestaurantApp.Web.Models;
 
 namespace RestaurantApp.Web.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class ChefsController : Controller
     {
         private readonly RestaurantDbContext _context;

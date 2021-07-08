@@ -4,16 +4,11 @@
 }
 
 <h2 class="text-center">Restaurant Statistics</h2>
+<p></p>
 <div>
-
     <div>
-
         <div class="row">
             <div class="col">
-
-              
-
-               
 
                 <div class="col">
                     <div class="form-group row mb-0">
@@ -23,9 +18,28 @@
                         </div>
                     </div>
                 </div>
+                <p></p>
+                <div class="col">
+                    <div class="form-group row mb-0">
+                        <label for="Nr menus" class="col-sm-4 col-form-label font-weight-bold">Nr menus ordered:</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="Nr menus ordered" name="Nr menus" value="@ViewBag.NrMenus" aria-describedby="SiteHelp" placeholder="" readonly>
+                        </div>
+                    </div>
+                </div>
+                <p></p>
+                <div class="col">
+                    <div class="form-group row mb-0">
+                        <label for="Nr vouchers" class="col-sm-4 col-form-label font-weight-bold">Nr vouchers accorded:</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="NVouchers" name="Vouchers" value="@ViewBag.Vouchers" aria-describedby="SiteHelp" placeholder="" readonly>
+                        </div>
+                    </div>
+                </div>
 
-               
             </div>
+
+
         </div>
     </div>
 </div>

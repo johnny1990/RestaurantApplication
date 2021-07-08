@@ -87,6 +87,12 @@ namespace RestaurantApp.Web.Controllers
             var nrOrders = _context.Orders.Select(p => p.OrderId);
             ViewBag.NrOrders = nrOrders.Count();
 
+            var orderedmenus = _context.OrderedMenus.Select(p => p.OrderId);
+            ViewBag.NrMenus = orderedmenus.Count();
+
+            var vouchers = _context.Vouchers.Select(p => p.Id);
+            ViewBag.Vouchers = vouchers.Count();
+
             return View();          
         }
 

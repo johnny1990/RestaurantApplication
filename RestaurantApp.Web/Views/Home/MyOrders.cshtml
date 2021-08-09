@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewData["Title"] = "MyOrders";
+}
+
+
+<h1 class="text-center">MyOrders list</h1>
+
+
+<table class="table" border="1">
+    <tr class="alert-info">
+        <th>
+           Name
+        </th>
+        <th>
+            Address
+        </th>
+        <th>
+            Order date
+        </th>
+        <th>
+            Amount
+        </th>
+    </tr>
+
+    @foreach (var item in (List<RestaurantApp.Entities.Orders>) ViewBag.Orders)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RegisterDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Amount)
+            </td>
+        </tr>
+    }
+</table>
+
+
+

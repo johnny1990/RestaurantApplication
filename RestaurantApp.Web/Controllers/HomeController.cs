@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using RestaurantApp.Entities;
@@ -94,6 +95,27 @@ namespace RestaurantApp.Web.Controllers
             ViewBag.Vouchers = vouchers.Count();
 
             return View();          
+        }
+
+        [HttpGet]
+        [Authorize]
+        public IActionResult MyOrders()
+        {
+            try
+            {
+                var UserName = User.Identity.Name.ToString();
+
+                IQueryable<Orders> order = from p in _context.Orders
+                                          where p.Mail == UserName
+                                          select p;
+                ViewBag.Orders = order.ToList();
+                return View();
+            }
+            catch (Exception ex)
+            {
+                Logger.LogWriter.LogException(ex);
+                return NotFound();
+            }
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

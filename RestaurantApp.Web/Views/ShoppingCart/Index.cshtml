@@ -54,32 +54,8 @@ else
         @Html.ActionLink("Confirm order", "Checkout", "Orders", new { id = @Math.Round(s, 2) }, new { @class = "btn btn-default border-dark" })
     </p>
 
-    //Paypal
-    <div class="paypaldiv">
-        <form class="paypalform" action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
-            <div> </div>
-            <h4>PayPal payment</h4>
-            <div class="form-group">
-                <input type="text" name="cmd" value="_cart" contenteditable="false" >
-                <input type="text" name="upload" value="1" contenteditable="false">
-                <input type="text" name="business" value="jultranet-facilitator@gmail.com" contenteditable="false" >
-            </div>
-            <div>
-                @foreach (var item in ViewBag.Cart)
-                {
-                    <input type="text" name="item_name_@count" value="@item.Menu.Name" contenteditable="false">
-                    <input type="text" name="amount_@count" value="@item.Menu.Price" contenteditable="false">
-                    <input type="text" name="quantity_@count" value="@item.Quantity" contenteditable="false">count++;
-                }
-            </div>
-            <div><input type="text" name="currency_code" value="USD" contenteditable="false"></div>
-            <input type="image" src="http://www.paypal.com/en_US/i/btn/x-click-but01.gif" name="submit" alt="Make payments with PayPal - it's fast, free and secure!">
-        </form>
-    </div>
-    <div><a href="#" class="placeorder btn btn-default pull-left">PayPal Checkout</a></div>
-}
-
-@section Scripts {
-    <script type="text/javascript" src="~/js/cart/paypal.js"></script>
-
+   
+<div>
+    <partial name="_PayPal" />
+</div>
 }

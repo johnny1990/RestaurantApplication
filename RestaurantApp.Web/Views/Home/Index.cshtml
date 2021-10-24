@@ -3,49 +3,53 @@
     ViewData["Title"] = "Home Page";
 }
 
+<div class="card">
+    <div class="card-header bg-white text-center text-danger font-weight-bold">
+        Order Menus
+    </div>
+    <div class="card-body">
+        <table class="table" border="1">
+            <thead class="text-info bg-light">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Chef)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Price)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Meals)
+                    </th>
+                    <th class="text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Chef.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Price)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Meals)
+                        </td>
+                        <td>
+                            @Html.ActionLink("AddToCart", "AddToCart", "ShoppingCart", new { id = @item.Id }, new { @class = "btn btn-success" })|
+                            @Html.ActionLink("View Details", "Details", "Menus", new { id = @item.Id }, new { @class = "btn btn-primary" })
 
-<h1 class="text-center">Order Menus</h1>
-
-<table class="table" border="1">
-    <thead class="text-info bg-light">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Chef)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Meals)
-            </th>
-            <th class="text-center">Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Chef.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Price)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Meals)
-                </td>
-                <td>
-                    @Html.ActionLink("AddToCart", "AddToCart", "ShoppingCart", new { id = @item.Id }, new { @class = "btn btn-success" })|
-                    @Html.ActionLink("View Details", "Details", "Menus", new { id = @item.Id }, new { @class = "btn btn-primary" })
-
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        </div>
+        </div>

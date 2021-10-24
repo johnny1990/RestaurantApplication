@@ -5,54 +5,59 @@
     ViewData["Title"] = "Checkout";
 }
 
-
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Checkout">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+<div class="card">
+    <div class="card-header bg-white text-center text-dark font-weight-bold">
+        Checkout
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4">
+                <form asp-action="Checkout">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label"></label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Address" class="control-label"></label>
+                        <input asp-for="Address" class="form-control" />
+                        <span asp-validation-for="Address" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Phone" class="control-label"></label>
+                        <input asp-for="Phone" class="form-control" />
+                        <span asp-validation-for="Phone" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Mail" class="control-label"></label>
+                        <input asp-for="Mail" class="form-control" value="@User.Identity.Name" />
+                        <span asp-validation-for="Mail" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="RegisterDate" class="control-label"></label>
+                        <input asp-for="RegisterDate" class="form-control" value="@DateTime.Now.ToString("MM/dd/yyyy h:mm:ss", CultureInfo.InvariantCulture)" />
+                        <span asp-validation-for="RegisterDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Amount" class="control-label"></label>
+                        <input asp-for="Amount" class="form-control" value="@ViewBag.Amount" />
+                        <span asp-validation-for="Amount" class="text-danger"></span>
+                    </div>
+                    @*voucher*@
+                    <div class="form-group">
+                        <label class="control-label">Voucher value</label>
+                        <select id="ddDiscount" class="form-control" asp-items="ViewBag.VoucherCoupon"></select>
+                        <span class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Confirm Order" class="btn btn-primary" />
+                    </div>
+                </form>
             </div>
-            <div class="form-group">
-                <label asp-for="Address" class="control-label"></label>
-                <input asp-for="Address" class="form-control" />
-                <span asp-validation-for="Address" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Phone" class="control-label"></label>
-                <input asp-for="Phone" class="form-control" />
-                <span asp-validation-for="Phone" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Mail" class="control-label"></label>
-                <input asp-for="Mail" class="form-control" value="@User.Identity.Name" />
-                <span asp-validation-for="Mail" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="RegisterDate" class="control-label"></label>
-                <input asp-for="RegisterDate" class="form-control" value="@DateTime.Now.ToString("MM/dd/yyyy h:mm:ss", CultureInfo.InvariantCulture)" />
-                <span asp-validation-for="RegisterDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Amount" class="control-label"></label>
-                <input asp-for="Amount" class="form-control" value="@ViewBag.Amount" />
-                <span asp-validation-for="Amount" class="text-danger"></span>
-            </div>
-            @*voucher*@
-            <div class="form-group">
-                <label class="control-label">Voucher value</label>
-                <select id="ddDiscount" class="form-control" asp-items="ViewBag.VoucherCoupon"></select>
-                <span class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Confirm Order" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
-
 @section Scripts {
     <script type="text/javascript" src="~/js/checkout/voucher.js"></script>
 

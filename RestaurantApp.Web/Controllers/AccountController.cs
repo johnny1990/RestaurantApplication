@@ -7,6 +7,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using RestaurantApp.Web.Models;
 using AutoMapper;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace RestaurantApp.Web.Controllers
 {
@@ -16,10 +21,13 @@ namespace RestaurantApp.Web.Controllers
         private readonly SignInManager<IdentityUser> signInManager;
         private readonly UserManager<IdentityUser> _userManager;
 
-        public AccountController(SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager)
+        private readonly IConfiguration _configuration;
+
+        public AccountController(SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager, IConfiguration configuration)
         {
             this.signInManager = signInManager;
             _userManager = userManager;
+            _configuration = configuration;
         }
 
         [HttpGet]
@@ -37,8 +45,19 @@ namespace RestaurantApp.Web.Controllers
             if (ModelState.IsValid)
             {
                 var result = await signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, lockoutOnFailure: false);
-                if (result.Succeeded)
+
+                #region Token
+                var authClaims = new List<Claim>
                 {
+                    new Claim(ClaimTypes.Name, model.UserName),
+                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                };
+
+                var token = GetToken(authClaims);
+                #endregion
+
+                if (result.Succeeded && token != null)
+                {                 
                     return RedirectToAction(nameof(HomeController.Index), "Home");
                 }
                 else
@@ -100,5 +119,22 @@ namespace RestaurantApp.Web.Controllers
         {
             return View();
         }
+
+        #region Generate JWT Token
+        private JwtSecurityToken GetToken(List<Claim> authClaims)
+        {
+            var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
+
+            var token = new JwtSecurityToken(
+                issuer: _configuration["JWT:ValidIssuer"],
+                audience: _configuration["JWT:ValidAudience"],
+                expires: DateTime.Now.AddHours(3),
+                claims: authClaims,
+                signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
+                );
+
+            return token;
+        }
+        #endregion
     }
 }

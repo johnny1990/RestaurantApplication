@@ -1,7 +1,13 @@
 ﻿@model IEnumerable<RestaurantApp.Entities.Menu>
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
 @{
     ViewData["Title"] = "Home Page";
 }
+
+<div class="text-center">
+    <h1 class="display-4">@localizer["Welcome"]</h1>
+    <p>@localizer["LearnMore"]</p>
+</div>
 
 <div class="card">
     <div class="card-header bg-white text-center text-danger font-weight-bold">

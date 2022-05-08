@@ -8,10 +8,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using RestaurantApp.Web.Data;
 using RestaurantApp.Web.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -53,6 +55,22 @@ namespace RestaurantApp.Web
                 // requires using Microsoft.AspNetCore.Http;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
+
+            services.AddLocalization(options => options.ResourcesPath = "Resources");
+            services.AddMvc()
+                .AddViewLocalization(Microsoft.AspNetCore.Mvc.Razor.LanguageViewLocationExpanderFormat.Suffix)
+                .AddDataAnnotationsLocalization();
+
+            services.Configure<RequestLocalizationOptions>(options =>
+            {
+                var cultures = new List<CultureInfo> {
+                new CultureInfo("en"),
+                new CultureInfo("ro")
+    };
+                options.DefaultRequestCulture = new Microsoft.AspNetCore.Localization.RequestCulture("en");
+                options.SupportedCultures = cultures;
+                options.SupportedUICultures = cultures;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -78,6 +96,18 @@ namespace RestaurantApp.Web
             app.UseAuthorization();
             app.UseSession();
             app.UseCookiePolicy();
+
+            //var cultures = new List<CultureInfo> {
+            //   new CultureInfo("en"),
+            //   new CultureInfo("fr")
+            //};
+
+            //app.UseRequestLocalization(options => {
+            //    options.DefaultRequestCulture = new Microsoft.AspNetCore.Localization.RequestCulture("en");
+            //    options.SupportedCultures = cultures;
+            //    options.SupportedUICultures = cultures;
+            //});
+            app.UseRequestLocalization(app.ApplicationServices.GetRequiredService<IOptions<RequestLocalizationOptions>>().Value);
 
             app.UseEndpoints(endpoints =>
             {

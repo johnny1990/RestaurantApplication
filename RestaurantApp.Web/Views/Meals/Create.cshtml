@@ -4,26 +4,29 @@
     ViewData["Title"] = "Create";
 }
 
+<script type="text/javascript" src="~/js/meals/insert.js">
+</script>
+
 <h1>Create</h1>
 
 <h4>Meal</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+            <form id="MealForm" novalidate class="needs-validation">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
+                <input asp-for="Name" class="form-control id="name" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Comments" class="control-label"></label>
-                <input asp-for="Comments" class="form-control" />
+                <input asp-for="Comments" class="form-control id="comments" />
                 <span asp-validation-for="Comments" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <button type="button" class="btn btn-primary" onclick="SubmitMeal()">Submit</button>
             </div>
         </form>
     </div>

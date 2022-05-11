@@ -64,16 +64,18 @@ namespace RestaurantApp.Web.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Comments")] Meal meal)
+        public IActionResult Create(Meal meal)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(meal);
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
+
             return View(meal);
+        
+
         }
 
         // GET: Meals/Edit/5

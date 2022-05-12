@@ -11,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using RestaurantApp.Web.Data;
 using RestaurantApp.Web.Models;
+using RestaurantApp.Web.Models.IP;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -71,6 +72,8 @@ namespace RestaurantApp.Web
                 options.SupportedCultures = cultures;
                 options.SupportedUICultures = cultures;
             });
+
+            services.AddScoped<TraceIP>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

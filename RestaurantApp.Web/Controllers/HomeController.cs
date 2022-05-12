@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using RestaurantApp.Entities;
 using RestaurantApp.Web.Models;
+using RestaurantApp.Web.Models.IP;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -22,6 +23,7 @@ namespace RestaurantApp.Web.Controllers
         }
 
         //restaurant dashboard
+        [ServiceFilter(typeof(TraceIP))]
         public IActionResult Index()
         {
             try

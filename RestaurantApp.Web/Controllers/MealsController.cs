@@ -16,11 +16,16 @@ namespace RestaurantApp.Web.Controllers
     {
         private readonly RestaurantDbContext _context;
 
+        public MealsController()
+        {
+        }
+
         public MealsController(RestaurantDbContext context)
         {
             _context = context;
         }
 
+        
         // GET: Meals
         public async Task<IActionResult> Index(int? pageNumber)
         {

@@ -17,7 +17,7 @@ namespace RestaurantApp.Web.Tests
         public async void DetailsMethod()
         {
             MealsController hc = new MealsController();
-            var result = hc.Details(1) as ViewResult;
+            var result = await hc.Details(1) as ViewResult;
             Assert.AreEqual("Details", result.ViewName);
         }
     }

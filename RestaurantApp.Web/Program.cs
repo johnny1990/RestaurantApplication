@@ -9,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using RestaurantApp.Web.Data;
+using RestaurantApp.Web.Helpers;
 using RestaurantApp.Web.Models;
 using RestaurantApp.Web.Models.IP;
 using System;
@@ -39,7 +40,9 @@ using System.Threading.Tasks;
     builder.Services.AddRazorPages();
     builder.Services.AddSession();
 
-    builder.Services.Configure<CookiePolicyOptions>(options =>
+    builder.Services.AddTransient<ExceptionMiddlewareAPI>();
+
+builder.Services.Configure<CookiePolicyOptions>(options =>
     {
     // This lambda determines whether user consent for non-essential 
     // cookies is needed for a given request.
@@ -93,7 +96,10 @@ using System.Threading.Tasks;
 
     app.UseRequestLocalization(app.Services.GetRequiredService<IOptions<RequestLocalizationOptions>>().Value);
 
-    app.UseEndpoints(endpoints =>
+    app.UseDeveloperExceptionPage();
+    app.UseMiddleware<ExceptionMiddlewareAPI>();
+
+app.UseEndpoints(endpoints =>
     {
     endpoints.MapControllerRoute(
         name: "default",

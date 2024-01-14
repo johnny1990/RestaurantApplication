@@ -56,7 +56,7 @@ builder.Services.Configure<CookiePolicyOptions>(options =>
     .AddViewLocalization(Microsoft.AspNetCore.Mvc.Razor.LanguageViewLocationExpanderFormat.Suffix)
     .AddDataAnnotationsLocalization();
 
-    builder.Services.Configure<RequestLocalizationOptions>(options =>
+builder.Services.Configure<RequestLocalizationOptions>(options =>
     {
     var cultures = new List<CultureInfo> {
                 new CultureInfo("en"),
